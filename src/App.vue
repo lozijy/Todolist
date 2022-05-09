@@ -1,5 +1,6 @@
 <template>
   <div id="root">
+    <Headline/>
     <div class="todo-container">
       <div class="todo-wrap">
         <MyHeader :addTodo="addTodo"/>
@@ -7,6 +8,7 @@
         <MyFooter :todos="todos" :checkAllTodo="checkAllTodo" :clearAllTodo="clearAllTodo"/>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -15,17 +17,23 @@ import MyHeader from './components/MyHeader.vue'
 import MyList from './components/MyList.vue'
 import MyFooter from './components/MyFooter.vue'
 import MyItem from "@/components/MyItem";
+import Headline from "@/components/Headline";
 
 export default {
   name:"App",
   components:{
     // eslint-disable-next-line vue/no-unused-components
-  MyList,MyFooter,MyHeader,MyItem
+  MyList,MyFooter,MyHeader,MyItem,Headline
   },
   data(){
     return{
       //存放数据,由additem方法传输数据
-      todos:[],
+      todos:[]
+    }
+  },
+  watch:{
+    todos(value){
+      localStorage.setItem("todos",JSON.stringify(value));
     }
   },
   methods:{
@@ -64,9 +72,13 @@ export default {
 
 <style>
 body {
-  background: #fff;
+  background: #fff url("../public/img/img2.webp");
+}
+img{
+
 }
 .todo-container {
+  background-color: pink;
   width: 600px;
   margin: 50px auto;
 }
